@@ -1,4 +1,5 @@
 # Blind 75
+from collections import defaultdict
 from typing import List
 
 
@@ -96,3 +97,27 @@ for nums, target in test_cases:
     print(f"\nInputs: nums{nums},target{target}")
     print(f"Output:{actual_output}")
 print("\n Test completed")
+
+# Group Anagram
+# Given an array of strings strs, group all anagrams together into sublists. You may return the output in any order
+
+
+class GroupAnagram:
+    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
+        res = defaultdict(list)  # automatically creates a key if the key doesnt exists
+        for s in strs:
+            count = [0] * 26  # This is to count each letter of the alphabet
+            for c in s:
+                count[ord(c) - ord("a")] += 1
+            res[tuple(count)].append(s)
+        return list(res.values())
+
+
+grouper = GroupAnagram()  # making an instance of the class
+
+testing = [["eat", "tea", "ate", "bat", "sat"]]
+
+for strs in testing:
+    output = grouper.groupAnagrams(strs)
+
+    print(f"Output:{output}")
