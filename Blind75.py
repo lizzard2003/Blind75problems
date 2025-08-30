@@ -121,3 +121,37 @@ for strs in testing:
     output = grouper.groupAnagrams(strs)
 
     print(f"Output:{output}")
+
+
+# Top K Frequent
+# this returns the most frequent numbers in an array
+# it puts it in a hash map and counts as a decrementation to get the top k numbers
+# instead of putting the numbers and sorting you can put a hash map that is long as the array
+# to then track the numbers at that amount.
+class topKFrequent:
+    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+        count = {}  # hashmap to get the count of each number
+        freq = [
+            [] for i in range(len(nums) + 1)
+        ]  # make a list for the amount of numbers in the array plus one
+
+        for n in nums:  # going throught the array nums
+            count[n] = 1 + count.get(n, 0)
+        for n, c in count.items():
+            freq[c].append(n)
+
+        res = []
+        for i in range(len(freq) - 1, 0, -1):
+            for n in freq[i]:
+                res.append(n)
+                if len(res) == k:
+                    return res
+
+
+kcount_finder = topKFrequent()
+
+nums = [1, 2, 2, 3, 3, 3, 4]
+k = 2
+
+result = kcount_finder.topKFrequent(nums, k)
+print(f"The {k} most frequent numbers in {nums}are :{result}")
