@@ -181,3 +181,19 @@ class Encode:
             res.append(s[j + 1 : j + 1 + length])
             i = j + 1 + length
         return res
+# Products of Arrays Except Self
+# how this works is that you have an array and if the pointer is on an index
+# You multiply all the rest of the nums and add it to a new list
+class Solution:
+    def productExceptSelf(self, nums: List[int]) -> List[int]:
+        res = [1] * (len(nums))
+
+        prefix = 1
+        for i in range(len(nums)):
+            res[i] = prefix
+            prefix *= nums[i]
+        postfix = 1
+        for i in range(len(nums) - 1, -1, -1):
+            res[i] *= postfix
+            postfix *= nums[i]
+        return res
